@@ -1,0 +1,79 @@
+#-------------------------------------
+server:
+  # 端口
+#  port: 8083
+  port: 8081
+  address: 0.0.0.0
+#-------------------------------------
+
+
+#-------------------------------------
+spring:
+  profiles:
+    active: dev
+    #    freemarker默认存放路径
+  freemarker:
+    template-loader-path: classpath:/templates/freemarker/
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: static/**
+  mail:
+    host: smtp.qq.com # 设置邮箱主机
+    port: 587 # SMTP 服务器的端口
+    username: 1546631808@qq.com # 设置用户名
+    password:  malttohlkjhcgfih # 设置密码，该处的密码是QQ邮箱开启SMTP的授权码而非QQ密码
+  mvc:
+    static-path-pattern: /static/images/**,/static/templates/**
+  #数据库连接配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tt?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 119917788
+  web:
+    resources:
+      static-locations: classpath:/static,file:${prop.upload-folder},classpath:/templates,${prop.backend},${prop.backendIp}
+#      static-path-pattern: /images/**
+#-------------------------------------
+prop:
+#  upload-folder: F:\ALL\demo2\src\main\resources\static\images\allgoods\
+  upload-folder: /home/jjw/Desktop/server/images/allgoods/
+  backend: http://124.71.159.90:8081/images/allgoods/
+  backendIp: http://124.71.159.90:8081
+mail:
+  fromMail:
+    addr: 1546631808@qq.com
+#-------------------------------------
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#-------------------------------------
+
+
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: satoken
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 2592000
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: true
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: false
+
+
+
+
+
