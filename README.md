@@ -9,6 +9,8 @@
 ### Motivation
 ---
 ### Architecture
+#### Backend with Spring Boot
+#### Frontend with Vue3
 
 ---
 ### Demonstration of the work
