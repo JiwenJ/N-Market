@@ -6,7 +6,13 @@
    - [Architecture](#architecture)
    - [Demonstration of the work](#demonstration-of-the-work)
 ---
+
 ### Motivation
+
+The waste of used books, break the information barrier among students.
+
+Initial exploration of LLMs in online shopping platform as well as full-stack development.
+
 ---
 ### Architecture
 #### Backend with Spring Boot
