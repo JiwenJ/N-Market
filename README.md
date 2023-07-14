@@ -5,4 +5,11 @@
 ### Architecture
 
 
-[Live demo](http://124.71.159.90/home) powered by Huawei Cloud.
+### Demonstration of the work
+You can try the [Live demo](http://124.71.159.90/home), powered by Huawei Cloud.
+#### Homepage
+##### AI assistance
+#### Personal edition
+#### Goods
+
+
