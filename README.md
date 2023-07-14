@@ -12,7 +12,7 @@
 
 ---
 ### Demonstration of the work
-You can try the [Live demo](http://124.71.159.90/home), powered by Huawei Cloud. (validated until 2023-08-15)
+You can try the [Live demo](http://124.71.159.90/home), powered by Huawei Cloud. (valid until 2023-08-15)
 #### Homepage
 ##### AI assistant (need magic)
 AI assistant is prompted with the following targeted scenarios:
