@@ -24,11 +24,7 @@ You can try the [Live demo](http://124.71.159.90/home), powered by Huawei Cloud.
 #### Homepage
 ##### AI assistant (need magic)
 AI assistant is prompted with the following targeted scenarios:
-  - x
-  - s
-  - x
-  - x
-  - x
+  - TBD
 #### Personal edition
 #### Goods
 
