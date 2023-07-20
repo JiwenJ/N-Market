@@ -156,7 +156,7 @@ export default {
                     "uid":getStore("id"),
                     "email":getStore("email"),
                     "time":msg.time,
-                    "status":1,
+                    "status":"1",
                 };
                 await insertGoodMysql(goodinfo).then(res=>{console.log(res)})
         })

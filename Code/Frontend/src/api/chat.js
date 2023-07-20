@@ -9,7 +9,7 @@ export async function chat(messageList, apiKey) {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo",
+          model: "gpt-4",
           stream: true,
           messages: messageList,
         }),

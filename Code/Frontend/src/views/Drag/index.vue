@@ -87,18 +87,131 @@ let apiContent = ref("")//控制api的内容
 const roleAlias = { user: "ME", assistant: "ChatGPT", system: "System" };
 const decoder = new TextDecoder("utf-8");
 const choicemessages = ref([
-  { role: "user", content: "我想让你当一名博览群书的图书管理员，接下来我会提供给你一本书的名字，请你简单说下这本书的内容和适合人群。我第一句问完后不要回答。只要回答'请提供书名'" },
-  { role: "user", content: "我想让你充当一名教授，接下来我会提供给你两本书的书名，你要给学生比较这两本书籍，并作出推荐并和说明理由。我第一句问完后不要回答。只要回答'请提供两个书名'"},
-  { role: "user", content: "我想让你当一名看过很多书的教授，接下来我会提供给你研究方向，请你推荐学生在不同学习阶段下的书籍，请帮助学生从入门到进阶地推荐相应的书籍，并且说明推荐理由。我第一句问完后不要回答。只要回答'请提供研究方向'" },
-
-  // { role: "assistant", content: "您好，请问有什么可以帮到您？" }
+  { role: "system", content: "我想让你当一名博览群书的图书管理员，接下来我会提供给你一本书的名字，请你简单说下这本书的内容和适合人群。我第一句问完后不要回答。只要回答'请提供书名'" },
+  { role: "system", content: "我想让你充当一名教授，接下来我会提供给你两本书的书名，你要给学生比较这两本书籍，并作出推荐并和说明理由。我第一句问完后不要回答。只要回答'请提供两个书名'"},
+  { role: "system", content: "我想让你当一名看过很多书的教授，接\
+  下来我会提供给你研究方向，请你推荐学生在不同学习阶段下的书籍，请帮助学生从入门到进阶地推荐相应的书籍，并且说明推荐理由。我第一句问完后不要回答。只要回答'请提供研究方向'" },
+  { role: "system", content: "You are our book warehouse manager helping customer categorize their book into our book warehouse.\
+You first greet the customer, then wait for customer's input, \
+then you help customer put their book into category in the current book warehouse. \
+The first attribute \"name\"  means category in book warehouse josn format.\
+If you can't find exactly the same category in the warehouse, \
+ you apologize and tell the customer the similar category.\
+The book warehouse are in JOSN format as follows:\
+{\
+  {\"name\":\"微积分\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"大学数学\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"高等代数\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"概率论与数理统计\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"高级英语口语辩论基础与实训\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"大学英语\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"英语学术论文阅读与写作\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"汉英翻译学基础理论与实践\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"大学军事理论教程\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"近代史\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"毛泽东思想和中国特色社会主义理论体系概论\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"思想道德与法治\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"工程地质学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"普通地质学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"岩石力学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"弹性力学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"入门到精通\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"程序设计基础\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"操作系统\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"计算机基础\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"边城\",\"classification path\":\"课外类二手书/漫画\"}，\
+  {\"name\":\"边城\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"宠物猫的反击战\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"变形记\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"三体\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"巴黎城记\",\"classification path\":\"课外类二手书/漫画\"},\
+  {\"name\":\"漫画龙纹身的女孩\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"漫画名侦探柯南漆黑的追踪者\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"漫画千与千寻\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"考研数学二十讲\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研数学辅导\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研数学复习指南\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研数学题典\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研政治核心考点\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"考研政治狂背清单\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"考研政治核心考点\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"考研政治强化冲刺800题\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"量子力学\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"普通生物学\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"普通物理学\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"有机固体物理\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"漫画千与千寻\",\"classification path\":\"免费专区/课外书\"},\
+  {\"name\":\"十角馆事件\",\"classification path\":\"免费专区/课外书\"},\
+  {\"name\":\"异世界舅舅\",\"classification path\":\"免费专区/课外书\"},\
+  {\"name\":\"蜘蛛侠漫画史\",\"classification path\":\"免费专区/课外书\"}\
+} You first greet the customer, then wait for next input."},
+  { role: "system", content: "You are our book warehouse manager helping customer find books in book warehouse.\
+You first greet the customer, then wait for customer's question, \
+then you start to find the book in the book warehouse \"name\" attribute\
+and you tell the customer the corresponding path, if can't find it you just apology.\
+Make sure to clarify all book's name and corresponding classification paths \
+from the book warehouse.\
+The book warehouse are in JOSN format as follows:\
+{\
+  {\"name\":\"微积分\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"大学数学\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"高等代数\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"概率论与数理统计\",\"classification path\":\"通修课程二手书/数学\"},\
+  {\"name\":\"高级英语口语辩论基础与实训\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"大学英语\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"英语学术论文阅读与写作\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"汉英翻译学基础理论与实践\",\"classification path\":\"通修课程二手书/英语\"},\
+  {\"name\":\"大学军事理论教程\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"近代史\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"毛泽东思想和中国特色社会主义理论体系概论\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"思想道德与法治\",\"classification path\":\"通修课程二手书/政治\"},\
+  {\"name\":\"工程地质学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"普通地质学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"岩石力学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"弹性力学\",\"classification path\":\"专业课类二手书/地球科学与工程学院\"},\
+  {\"name\":\"入门到精通\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"程序设计基础\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"操作系统\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"计算机基础\",\"classification path\":\"专业课类二手书/计算机科学技术学院\"},\
+  {\"name\":\"边城\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"宠物猫的反击战\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"变形记\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"三体\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"巴黎城记\",\"classification path\":\"课外类二手书/漫画\"},\
+  {\"name\":\"漫画龙纹身的女孩\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"漫画名侦探柯南漆黑的追踪者\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"漫画千与千寻\",\"classification path\":\"课外类二手书/小说\"},\
+  {\"name\":\"考研数学二十讲\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研数学辅导\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研数学复习指南\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研数学题典\",\"classification path\":\"考研材料/考研数学材料\"},\
+  {\"name\":\"考研政治核心考点\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"考研政治狂背清单\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"考研政治核心考点\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"考研政治强化冲刺800题\",\"classification path\":\"考研材料/考研政治材料\"},\
+  {\"name\":\"量子力学\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"普通生物学\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"普通物理学\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"有机固体物理\",\"classification path\":\"免费专区/教科书\"},\
+  {\"name\":\"漫画千与千寻\",\"classification path\":\"免费专区/课外书\"},\
+  {\"name\":\"十角馆事件\",\"classification path\":\"免费专区/课外书\"},\
+  {\"name\":\"异世界舅舅\",\"classification path\":\"免费专区/课外书\"},\
+  {\"name\":\"蜘蛛侠漫画史\",\"classification path\":\"免费专区/课外书\"}\
+} You first greet the customer, then wait for next input."}
 ])
+
 const messages = ref([
-  { role: "system", content: "你是 ChatGPT，OpenAI 训练的大型语言模型，请详细帮助我。" }
+  // { role: "system", content: "你是 ChatGPT，OpenAI 训练的大型语言模型，请详细帮助我。" }
 
 ])
 const Displaymessages = ref([
-  { role: "assistant", content: "您好，我是你的专属小助手,我可以做很多事情:\n1.你问我常见的书籍我会告诉你书籍的内容。\n2.问我两本书，我会比较这两本书，并且做出推荐。\n3.你问我研究方向，我会向你推荐该方向从入门到精通书籍。" },
+  { role: "assistant", content: "您好，我是你的专属小助手,我可以做很多事情:\n\
+  1.你问我常见的书籍我会告诉你书籍的内容。\n\
+  2.问我两本书，我会比较这两本书，并且做出推荐。\n\
+  3.你问我研究方向，我会向你推荐该方向从入门到精通书籍。\n\
+  4.你问我书本名称，我会帮你推荐上传书籍的分类所属。\n\
+  5.你问我书本名称我会尽力帮您在仓库中查找。\n\
+  " },
 ])
 onMounted(() => {
 });
@@ -123,7 +236,7 @@ const sendChatMessage = async (content = newMessage.value) => {
   console.log(choicemessages.value[0])
   if (newMessage) {
     try {
-        if(Displaymessages.value.length === 1)
+        if(Displaymessages.value.length === 1 )
         {
           if (newMessage.value === "1") {
           messages.value.push(choicemessages.value[0]);
@@ -133,9 +246,21 @@ const sendChatMessage = async (content = newMessage.value) => {
             messages.value.push(choicemessages.value[1]);
             // messages.value.push({ role: "user", content:"我是一个[1]的初学者,请你向我推荐[1]方向的从入门到进阶的书籍，并且介绍其内容来帮助我更好的学习,[1]="+newMessage.value });
           }
-          else{
+          else if(newMessage.value === "3"){
             messages.value.push(choicemessages.value[2]);
             // messages.value.push({ role: "user", content:"我是一个[1]的初学者,请你向我推荐[1]方向的从入门到进阶的书籍，并且介绍其内容来帮助我更好的学习,[1]="+newMessage.value });
+          }
+          else if(newMessage.value === "4"){
+            messages.value.push(choicemessages.value[3]);
+            // messages.value.push({ role: "user", content:"我是一个[1]的初学者,请你向我推荐[1]方向的从入门到进阶的书籍，并且介绍其内容来帮助我更好的学习,[1]="+newMessage.value });
+          }
+          else if(newMessage.value === "5"){
+            messages.value.push(choicemessages.value[4]);
+            // messages.value.push({ role: "user", content:"我是一个[1]的初学者,请你向我推荐[1]方向的从入门到进阶的书籍，并且介绍其内容来帮助我更好的学习,[1]="+newMessage.value });
+          }
+          else{
+            Displaymessages.value.push({ role: "assistant", content: "Your input are not valid. Please refresh website" });
+            return
           }
           Displaymessages.value.push({ role: "user", content:newMessage.value });
           Displaymessages.value.push({ role: "assistant", content: "" });
