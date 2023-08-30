@@ -1,5 +1,5 @@
 # N-Market 
-> A Campus Used Books Information Platform
+> A Campus Used Books Information Platform [First Prize of Jiangsu Province] [National Second Prize]
 ---
 - [N-Market](#n-market)
    - [Motivation](#motivation)
