@@ -16,7 +16,11 @@
 
 ##### Prerequisite
 
-- nginx nginx -s reload
+###### 1. nginx
+```bash
+nginx -s reload
+```
+
 
 ##### Deploy backend
 
