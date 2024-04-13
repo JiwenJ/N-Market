@@ -1,4 +1,4 @@
-# N-Market 
+# N-Market
 > A Campus Used Books Information Platform
 ---
 - [N-Market](#n-market)
@@ -18,8 +18,8 @@ Initial exploration of LLMs in online shopping platform as well as full-stack de
 
 ### prerequisite
 
-- nginx nginx -s reload  
-- 
+- nginx nginx -s reload
+-
 
 ### Deploy backend
 
@@ -39,8 +39,13 @@ npm run serve
 ---
 ### Demonstration of the work
 You can try the [Live demo](http://124.71.159.90/home), powered by Huawei Cloud. (valid until 2023-08-15)
-#### Homepage
-##### AI assistant 
+
+<details closed>
+<summary>Homepage</summary>
+
+</details>
+
+##### AI assistant
 ##### preliminary
 > OpenAI API KEY
 
