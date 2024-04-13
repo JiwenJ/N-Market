@@ -9,7 +9,7 @@
 
 ### Motivation
 
-There is a lack of an intermediary platform with certain guarantees to enhance the efficiency of second-hand book transactions among students and the reliability of the items. Taking Nanjing University campus as an example, this platform aims to create an AI-powered transaction information platform. An AI assistant can provide personalized recommendation services such as book comparisons for customers, the transaction process is further constrained to improve efficiency, standardize the transaction process, and provide a comfortable experience for both parties
+> There is a lack of an intermediary platform with certain guarantees to enhance the efficiency of second-hand book transactions among students and the reliability of the items. Taking Nanjing University campus as an example, this platform aims to create an AI-powered transaction information platform. An AI assistant can provide personalized recommendation services such as book comparisons for customers, the transaction process is further constrained to improve efficiency, standardize the transaction process, and provide a comfortable experience for both parties
 
 ---
 ### Deployment
